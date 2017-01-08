@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>扇贝</title>
+		<style type="text/css">
+
+					body,html{
+						background: #000;
+						width: 100%;
+						height: 100%;
+						margin: 0;
+						overflow: hidden;
+					}
+					.box{
+						width:100%;
+						height:100%;
+					}
+
+
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/easeljs-0.8.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/TweenMax.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Sector.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+					var result = null;
+					$.ajax({
+						type:"get",
+						url:"data/ceshi.json",
+						dataType:"json",
+						success:function(data){
+							var sector = new Widget.Sector(".box");
+							sector.setConfig({
+								"boxElement": ".box",
+								"labelField": "name",
+		                		"valueField": "value",
+		                		"sectordefaultColor":"#1c8dd1",
+		                		"sectorHighlightColor":"#1fe5fc",
+		                		"linedefaultColor":"#1b77af",
+		                		"lineHighlightColor":"#db6403",
+		                		"linepointer":"#ffe400",
+		                		"fontStyle":"12px Arial",
+		                		"fontdefaultColor":"#61bdf4",
+		                		"fontHighlightColor":"#eae802",
+		                		"itemSpacing":10,
+		                		"itemWidth":10,
+		                		"left":20
+							});
+							sector.resize({
+								width:$(sector.config.boxElement).width(),
+								height:$(sector.config.boxElement).height()
+							});
+							$(window).on("resize",function(){
+								sector.resize({
+									width:$(sector.config.boxElement).width(),
+									height:$(sector.config.boxElement).height()
+								});
+							});
+							sector.setDataProvider(data);
+						}
+					});
+
+		</script>
+	</body>
+</html>
